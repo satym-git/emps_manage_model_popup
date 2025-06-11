@@ -1,0 +1,123 @@
+/* ===== Background & Form Card ===== */
+.background-wrapper {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../assets/image/background.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding: 60px 20px;
+}
+
+.form-card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 40px 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.form-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ===== Typography ===== */
+h2 {
+  font-weight: bold;
+  font-size: 2rem;
+  color: #2c3e50;
+}
+
+/* ===== Form Inputs ===== */
+.form-control {
+  height: 45px;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.25);
+}
+
+label.form-label {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* ===== Error Styling ===== */
+.text-danger {
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.ng-invalid.ng-touched:not(form),
+.ng-invalid.ng-dirty:not(form) {
+  border-color: #dc3545;
+}
+
+/* ===== Button Styling ===== */
+.button-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.button-group .btn {
+  padding: 10px 25px;
+  font-weight: 600;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.button-group .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Modal Styling ===== */
+.modal-content {
+  border-radius: 16px;
+  padding: 20px;
+  background: #f8f9fa;
+}
+
+.modal-header {
+  background: linear-gradient(to right, #007bff, #00c6ff);
+  color: white;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.modal-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.modal-body label {
+  font-weight: 600;
+}
+
+.modal-body .form-control {
+  border-radius: 10px;
+}
+
+/* AG Grid Adjustments */
+.ag-theme-alpine {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}

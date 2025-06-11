@@ -1,0 +1,198 @@
+<div class="background-wrapper">
+  <div class="form-card">
+
+    <h2 class="mb-4 text-center text-black">Employee Management App</h2>
+
+    <!-- 👇 Wrap form and buttons separately -->
+    <div class="form-wrapper">
+
+      <form #employeeForm="ngForm" class="row g-3" novalidate>
+        <!-- First Name -->
+        <!-- <div class="col-md-6">
+          <label for="first_name" class="form-label text-black">First Name</label>
+          <input type="text" class="form-control" id="first_name" [(ngModel)]="employee.first_name" name="first_name"
+            #firstName="ngModel" placeholder="Enter first name" required maxlength="100" />
+          <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="text-danger">
+            <div *ngIf="firstName.errors?.['required']">First name is required</div>
+            <div *ngIf="firstName.errors?.['maxlength']">First name cannot exceed 100 characters</div>
+          </div>
+        </div> -->
+
+        <!-- Last Name -->
+       
+        <!-- Date of Birth -->
+        <!-- <div class="col-md-6">
+          <label for="dob" class="form-label text-black">Date of Birth</label>
+          <input type="date" class="form-control" id="dob" [(ngModel)]="employee.dob" name="dob" #dob="ngModel"
+            (change)="calculateAge()" [max]="currentDate" required />
+          <div *ngIf="dob.invalid && (dob.dirty || dob.touched)" class="text-danger">
+            Date of birth is required
+          </div>
+        </div> -->
+
+        <!-- Age (disabled) -->
+        <!-- <div class="col-md-6">
+          <label for="age" class="form-label text-black">Age</label>
+          <input type="number" class="form-control" id="age" [(ngModel)]="employee.age" name="age" disabled />
+        </div> -->
+      </form>
+    </div>
+
+    <!-- 👇 Buttons pinned to bottom -->
+    <div class="button-group mt-auto pt-4">
+      <!-- <button type="button" class="btn btn-primary px-4" (click)="addemployee(employeeForm)">Add</button>
+      <button type="button" class="btn btn-warning px-4" (click)="submit()">Update</button>
+      <button type="button" class="btn btn-success px-4" (click)="save()">Save</button>
+      <button type="button" class="btn btn-danger px-4" (click)="deleteSelectedRows()">Delete</button> -->
+      <!-- <button type="button" class="btn btn-secondary px-4" (click)="clearForm(employeeForm)">Clear</button> -->
+      <button type="button" class="btn btn-success px-4" (click)="save()">Save</button>
+            <button type="button" class="btn btn-danger px-4" (click)="deleteSelectedRows()">Delete</button> 
+
+      <button type="button" class="btn btn-info px-4" data-bs-toggle="modal" data-bs-target="#detailsModal">
+        Details
+      </button>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- AG Grid Table -->
+<div class="container mt-3">
+    <ag-grid-angular
+    class="ag-theme-alpine mt-4"
+    rowSelection="multiple"
+    (gridReady)="onGridReady($event)"
+    style="width: 100%; height: 250px;"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    (selectionChanged)="onSelectionChanged($event)"
+    (rowDoubleClicked)="onRowDoubleClick($event)"
+  >
+  </ag-grid-angular>
+</div>
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailsModalLabel">Employee & Address Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form #addressForm="ngForm" (ngSubmit)="addemployee(addressForm)" class="row g-3" novalidate>
+
+          <!-- ✅ Employee Info -->
+          <div class="col-md-6">
+            <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+            <input type="text" id="firstName" class="form-control" [(ngModel)]="employee.first_name" name="first_name"
+              required maxlength="100" placeholder="Enter first name" #firstName="ngModel">
+            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="text-danger small">
+              <div *ngIf="firstName.errors?.['required']">First Name is required.</div>
+              <div *ngIf="firstName.errors?.['maxlength']">Max 100 characters allowed.</div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+            <input type="text" id="lastName" class="form-control" [(ngModel)]="employee.last_name" name="last_name"
+              required maxlength="100" placeholder="Enter last name" #lastName="ngModel">
+            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="text-danger small">
+              <div *ngIf="lastName.errors?.['required']">Last Name is required.</div>
+              <div *ngIf="lastName.errors?.['maxlength']">Max 100 characters allowed.</div>
+            </div>
+          </div>
+        
+        <div class="col-md-6">
+          <label for="dob" class="form-label text-black">Date of Birth</label>
+          <input type="date" class="form-control" id="dob" [(ngModel)]="employee.dob" name="dob" #dob="ngModel"
+            (change)="calculateAge()" [max]="currentDate" required />
+          <div *ngIf="dob.invalid && (dob.dirty || dob.touched)" class="text-danger">
+            Date of birth is required
+          </div>
+        </div> 
+
+         <div class="col-md-6">
+          <label for="age" class="form-label text-black">Age</label>
+          <input type="number" class="form-control" id="age" [(ngModel)]="employee.age" name="age" disabled />
+        </div> 
+
+        
+          <div class="col-md-12">
+            <label for="address1" class="form-label">Address 1 <span class="text-danger">*</span></label>
+            <input type="text" id="address1" class="form-control" [(ngModel)]="employee.address1" name="address1"
+              required maxlength="200" placeholder="Enter your address" #address1="ngModel">
+            <div *ngIf="address1.invalid && (address1.dirty || address1.touched)" class="text-danger small">
+              <div *ngIf="address1.errors?.['required']">Address 1 is required.</div>
+              <div *ngIf="address1.errors?.['maxlength']">Max 200 characters allowed.</div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <label for="address2" class="form-label">Address 2</label>
+            <input type="text" id="address2" class="form-control" [(ngModel)]="employee.address2" name="address2"
+              placeholder="Enter your address" maxlength="200" #address2="ngModel">
+            <div *ngIf="address2.invalid && (address2.dirty || address2.touched)" class="text-danger small">
+              <div *ngIf="address2.errors?.['maxlength']">Max 200 characters allowed.</div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <label for="address3" class="form-label">Address 3</label>
+            <input type="text" id="address3" class="form-control" [(ngModel)]="employee.address3" name="address3"
+              maxlength="200" placeholder="Enter your address" #address3="ngModel">
+            <div *ngIf="address3.invalid && (address3.dirty || address3.touched)" class="text-danger small">
+              <div *ngIf="address3.errors?.['maxlength']">Max 200 characters allowed.</div>
+            </div>
+          </div>
+
+          <div class="col-md-4 p-2">
+            <label for="state" class="form-label">State <span class="text-danger">*</span></label>
+            <select class="form-control" [(ngModel)]="employee.state_id" name="state" required #stateRef="ngModel">
+              <option value="">Select State</option>
+              <option *ngFor="let state of states" [value]="state.state_id">{{ state.state_name }}</option>
+            </select>
+            <div *ngIf="stateRef.invalid && (stateRef.dirty || stateRef.touched)" class="text-danger small">
+              State selection is required.
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="city" class="form-label">City</label>
+            <input type="text" id="city" class="form-control" [(ngModel)]="employee.city" name="city"
+              placeholder="Enter city name" maxlength="100" pattern="[a-zA-Z\s]*" #city="ngModel">
+            <div *ngIf="city.invalid && (city.dirty || city.touched)" class="text-danger small">
+              <div *ngIf="city.errors?.['maxlength']">Max 100 characters allowed.</div>
+              <div *ngIf="city.errors?.['pattern']">Only alphabets and spaces allowed.</div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="pincode" class="form-label">Pincode <span class="text-danger">*</span></label>
+            <input type="text" id="pincode" class="form-control" [(ngModel)]="employee.pincode" name="pincode"
+              required maxlength="6" pattern="^[0-9]{6}$" placeholder="Enter Pincode" #pincode="ngModel">
+            <div *ngIf="pincode.invalid && (pincode.dirty || pincode.touched)" class="text-danger small">
+              <div *ngIf="pincode.errors?.['required']">Pincode is required.</div>
+              <div *ngIf="pincode.errors?.['maxlength']">Max 6 digits allowed.</div>
+              <div *ngIf="pincode.errors?.['pattern']">Pincode must be exactly 6 digits.</div>
+            </div>
+          </div>
+
+          <!-- ✅ Add Button -->
+          <div class="col-12 d-flex justify-content-end">
+            <button type="submit" class="btn btn-success" >
+              Add to Table
+            </button>
+          </div>
+        </form>
+
+    
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
